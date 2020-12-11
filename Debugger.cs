@@ -5,7 +5,7 @@ public class Debugger
 {
     Process process = new Process();
 
-    public Debugger(string processPath, params string[] processParams)
+    public Debugger(string processPath, string processParams)
     { 
         process.EnableRaisingEvents = true;
         process.OutputDataReceived += new DataReceivedEventHandler(process_OutputDataReceived);
@@ -13,7 +13,7 @@ public class Debugger
         process.Exited += new EventHandler(process_Exited);
 
         process.StartInfo.FileName = processPath;
-        process.StartInfo.Arguments = String.Join(' ', processParams);
+        process.StartInfo.Arguments = processParams;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.RedirectStandardError = true;
         process.StartInfo.RedirectStandardOutput = true;
@@ -29,6 +29,7 @@ public class Debugger
         catch (Exception e)
         {
             Console.WriteLine("UNABLE TO LAUNCH!");
+            Console.WriteLine(e);
             return;
         }
 
